@@ -14,7 +14,7 @@ def buscarInstrumentos(c):
 
     l = len(c)
 
-    a = listarInstrumentos()
+    a = getInstrumentos()
 
     b = a['instruments']
 
@@ -24,18 +24,40 @@ def buscarInstrumentos(c):
         if i['instrumentId']['symbol'][:l] == c:
             print(i['instrumentId']['symbol'])
 
+
+
 def listarSegmentos():
     segments = pyRofex.get_segments()
     return segments
 
+def getInstrumentos():
+    instruments = pyRofex.get_all_instruments()
+    print(instruments)
+
 def listarInstrumentos():
     instruments = pyRofex.get_all_instruments()
-    return instruments
+    for i in instruments['instruments']:
+        print(i['instrumentId']['symbol'])
+
+
+def getSimbolos():
+    instruments = pyRofex.get_all_instruments()
+    for i in instruments['instruments']:
+        return (i['instrumentId']['symbol'])
+
+
+def getListaSimbolos():
+    instruments = pyRofex.get_all_instruments()
+    lI = []
+    for i in instruments['instruments']:
+        lI.append(i['instrumentId']['symbol'])
+    lI.sort()
+    return (lI)
 
 def armarListadoDeTrades(a):
     trades = pyRofex.get_trade_history(ticker=a,
-                                       start_date='2019-08-01',
-                                       end_date='2019-08-15')
+                                       start_date='2019-08-07',
+                                       end_date='2019-08-25')
 
     return trades
 
@@ -46,8 +68,11 @@ def graficar(t):
     plt.show()
 
 def main():
-    buscarInstrumentos('SO')
-    print(armarListadoDeTrades('SOJ.ROSNov19'))
-    graficar(armarListadoDeTrades('SOJ.ROSNov19'))
+    #buscarInstrumentos('SO')
+    #print(armarListadoDeTrades('SOJ.ROSNov19'))
+    #graficar(armarListadoDeTrades('SOJ.ROSNov19'))
+    #getInstrumentos()
+    #listarInstrumentos()
+    getListaSimbolos()
 
-
+main()

@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 from tkinter import messagebox
 
 from prueba import armarListadoDeTrades
+from prueba import getListaSimbolos
 
 
 
@@ -22,6 +23,8 @@ class Ventana1:
         self.master.geometry('500x400+0+0')
         self.mercado = 'DODic19'
         self.trades = armarListadoDeTrades(self.mercado)
+        self.symbols = getListaSimbolos()
+
 
         #=====================================Treeview===========================================================
         self.tv = ttk.Treeview(self.master)
@@ -56,6 +59,7 @@ class Ventana1:
 
         self.tv.pack()
         '''
+
         self.listar()
 
 
@@ -67,10 +71,14 @@ class Ventana1:
         #====================================Variables===========================================================
 
 
+
         #=====================================Frames================================================================
 
+        self.buscador = Frame(self.frame, width= 300, height= 50)
+        self.buscador.grid(row=0, column=1)
+
         self.detalleI = Frame(self.frame, width= 300, height= 50)
-        self.detalleI.grid(row=0, column=1)
+        self.detalleI.grid(row=1, column=1)
 
         self.listado = Frame(self.frame, width= 300, height= 50)
         self.listado.grid(row=2, column=1)
@@ -95,6 +103,18 @@ class Ventana1:
 
         self.btnSalir = Button(self.botones, text='Salir', background= 'red', command = self.master.destroy)
         self.btnSalir.grid(row=1, column= 3)
+
+        #=====================================Buscador===========================================================
+        self.comboExample = ttk.Combobox(self.buscador,
+                                    values= self.symbols
+                                    )
+        print(dict(self.comboExample))
+        self.comboExample.grid(column=0, row=1)
+        self.comboExample.current(1)
+
+        self.comboExample.bind("<<ComboboxSelected>>", self.callbackFunc)
+
+        print('Valor del combo: ', self.comboExample.get())
 
 
         self.master.mainloop()
@@ -128,6 +148,21 @@ class Ventana1:
         l.plot(x = 'datetime', y ='price' )
         plt.gcf().autofmt_xdate()
         plt.show()
+
+    def callbackFunc(self, event):
+        print("New Element Selected")
+        print('Valor del combo: ', self.comboExample.get())
+        self.mercado = self.comboExample.get()
+        self.trades = armarListadoDeTrades(self.mercado)
+        self.listar()
+
+        self.datoOp2.destroy()
+
+        self.datoOp2 = Label(self.detalleI, text=self.mercado)
+        self.datoOp2.grid(row= 0, column=2)
+
+
+
 
 class Ventana2:
 
