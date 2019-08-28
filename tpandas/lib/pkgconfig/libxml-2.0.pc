@@ -1,0 +1,13 @@
+prefix=/home/juanchi/miniconda3/envs/tpandas
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+modules=1
+
+Name: libXML
+Version: 2.9.9
+Description: libXML library version2.
+Requires:
+Libs: -L${libdir} -lxml2
+Libs.private:  -lpthread -L/home/juanchi/miniconda3/envs/tpandas/lib -lz -L/home/juanchi/miniconda3/envs/tpandas/lib -llzma -L/home/juanchi/miniconda3/envs/tpandas/lib -lm  
+Cflags: -I${includedir}/libxml2 -I/home/juanchi/miniconda3/envs/tpandas/include 
