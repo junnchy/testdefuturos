@@ -41,7 +41,7 @@ def listarSegmentos():
 
 def getInstrumentos():
     instruments = pyRofex.get_all_instruments()
-    print(instruments)
+    return instruments
 
 def listarInstrumentos():
     instruments = pyRofex.get_all_instruments()
@@ -65,15 +65,15 @@ def getListaSimbolos():
 
 def armarListadoDeTrades(a):
     trades = pyRofex.get_trade_history(ticker=a,
-                                       start_date='2019-08-07',
-                                       end_date='2019-08-27')
+                                       start_date='2019-08-01',
+                                       end_date='2019-10-17')
 
     return trades
 
 def armarTrades(a):
     trades = pyRofex.get_trade_history(ticker=a,
                                        start_date='2019-08-07',
-                                       end_date='2019-08-27')
+                                       end_date='2019-09-02')
 
     return trades
 
@@ -115,7 +115,7 @@ def cargarDolar(db, trade):
 
 def main():
     #buscarInstrumentos('SO')
-    a = armarListadoDeTrades('DOSep19')
+    #a = armarListadoDeTrades('DOSep19')
 
     #graficar(armarListadoDeTrades('SOJ.ROSNov19'))
     #getInstrumentos()
@@ -124,7 +124,7 @@ def main():
     #cargarDolar(db, a)
 
     #buscarInstrumentos('DOSep19')
-
+    print(armarTrades('DODic19'))
     #print(DataFrame(getListaSimbolos()))
 
 main()
